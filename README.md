@@ -18,7 +18,9 @@ cp .env.example .env
 uvicorn app.main:app --app-dir backend --reload --port 8000
 ```
 
-Configure `GEMINI_API_KEY` in `.env`. Without it, the backend uses a development demo result and never pretends to call an AI provider. The model is controlled by `GEMINI_MODEL`.
+You can enter the Gemini API key directly in the **Gemini connection** section on the Resume Analyser page. It is sent to the local backend, kept only in that backend process, and cleared when the server restarts.
+
+An optional server environment setup is also supported: copy `.env.example` to `.env` and set `GEMINI_API_KEY`. Without a configured key, the backend uses development demo results and never pretends to call a live AI provider. The model is controlled by `GEMINI_MODEL`.
 
 ## Start the frontend
 ```bash

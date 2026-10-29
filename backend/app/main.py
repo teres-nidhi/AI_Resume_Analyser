@@ -46,6 +46,19 @@ class AnalyzeRequest(BaseModel):
 def health():
     return {"status": "ok", "demo_mode": ai.demo_mode}
 
+class AIConfigRequest(BaseModel):
+    api_key: str = Field(min_length=10, max_length=500)
+
+@app.post("/api/configure-ai")
+def configure_ai(payload: AIConfigRequest):
+    ai.configure(payload.api_key)
+    return {"configured": True, "demo_mode": ai.demo_mode}
+
+@app.delete("/api/configure-ai")
+def clear_ai():
+    ai.clear()
+    return {"configured": False, "demo_mode": ai.demo_mode}
+
 @app.post("/api/analyze")
 async def analyze(payload: AnalyzeRequest):
     result = await ai.analyze(payload.resume_text, payload.preferences.model_dump())

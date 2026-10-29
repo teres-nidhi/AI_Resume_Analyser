@@ -7,8 +7,18 @@ from .models import AnalysisResult, ResumeSummary, Skill, JobRecommendation, Ski
 
 class AIService:
     def __init__(self):
-        self.api_key = os.getenv("GEMINI_API_KEY")
+        self.api_key = os.getenv("GEMINI_API_KEY") or None
         self.model = os.getenv("GEMINI_MODEL", "gemini-2.0-flash")
+        self.demo_mode = not bool(self.api_key)
+
+    def configure(self, api_key: str | None) -> bool:
+        value = api_key.strip() if api_key else ""
+        self.api_key = value or None
+        self.demo_mode = not bool(self.api_key)
+        return not self.demo_mode
+
+    def clear(self) -> None:
+        self.api_key = os.getenv("GEMINI_API_KEY") or None
         self.demo_mode = not bool(self.api_key)
 
     async def analyze(self, resume_text: str, preferences: dict[str, Any]) -> AnalysisResult:

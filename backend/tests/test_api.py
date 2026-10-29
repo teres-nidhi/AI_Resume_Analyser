@@ -19,3 +19,11 @@ def test_demo_analysis():
 def test_json_export_shape():
     r=client.post('/api/analyze',json={'resume_text':'A'*100}); assert r.status_code==200
     assert isinstance(r.json()['learning_roadmap'],list)
+
+def test_api_key_configuration_is_runtime_only():
+    r=client.post('/api/configure-ai',json={'api_key':'test-key-not-a-real-secret'})
+    assert r.status_code==200
+    assert r.json()['configured'] is True
+    cleared=client.delete('/api/configure-ai')
+    assert cleared.status_code==200
+    assert cleared.json()['demo_mode'] is True
