@@ -1,0 +1,5 @@
+Alex Student
+Education: B.Tech Computer Science, 2027
+Projects: Built a React task manager using JavaScript, REST APIs, and Git. Published the source code and wrote a README.
+Skills: Python, React, JavaScript, SQL, HTML, CSS
+Experience: Summer intern in a software support team; reported issues and collaborated with developers using Git.
